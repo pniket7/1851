@@ -176,7 +176,7 @@ def update_investor_profile(session, investor_profile: dict, questions: list[str
 def initialize_sessionAdvisor():
     advisor = ChatSession(gpt_name='1851')
     advisor.inject(
-        line="I will give you a article text and keyword for that article. You have to classify the keyword relevance for that article(Low, medium, High) , search intent (Transactional,Navigational,Informational,Commercial Investigation) and Buying journey stage(Awareness, consideration, decision making)",
+        line="I will give you a article text and keyword for that article. You have to classify the keyword relevance for that article(Low, medium, High) , search intent (Transactional,Navigational,Informational,Commercial Investigation) and Buying journey stage(Awareness, consideration, decision making).Please do not give the same classification results for all the articles. If the keyword relevance is high, give classification as high.If the keyword relevance is medium, give classification as medium.If the keyword relevance is low, give classification as low.If the search intent is transactional, give classification as transactional.If the search intent is navigational, give classification as navigational.If the search intent is informational, give classification as informational.If the search intent is commercial investigation, give classification as commercial investigation. If Buying Journey Stage is Awareness, give classification as awareness. If Buying Journey Stage is consideration, give classification as consideration.If Buying Journey Stage is decision making, give classification as decision making.",
         role="user"
     )
     advisor.inject(line="Ok.", role="assistant")
