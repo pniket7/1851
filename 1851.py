@@ -176,7 +176,7 @@ def update_investor_profile(session, investor_profile: dict, questions: list[str
 def initialize_sessionAdvisor():
     advisor = ChatSession(gpt_name='1851')
     advisor.inject(
-        line="You will be given a article text and keyword for that article. For that keyword you have to classify the keyword relevance for that article(Low, Medium or High) , Search Intent (Transactional,Navigational,Informational,Commercial Investigation) and Buying Journey Stage(Awareness, Consideration, Decision Making).Your answer should contain only this 3 classifications. Avoid giving any additional information or explaination. Please try to classify the artices correctly based on the article text",
+        line="I will give you a article text and keyword for that article. You have to classify the keyword relevance for that article(Low, medium, High) , search intent (Transactional,Navigational,Informational,Commercial Investigation) and Buying journey stage(Awareness, consideration, decision making)",
         role="user"
     )
     advisor.inject(line="Ok.", role="assistant")
