@@ -143,6 +143,34 @@ class ChatSession:
             message = msg['content']
             who = {'user': 'User: ', 'assistant': f'{self.gpt_name}: '}[msg['role']]
             print(who + message.strip() + '\n')
+            
+@ErrorHandler
+def update_investor_profile(session, investor_profile: dict, questions: list[str], verbose: bool = False):
+    ask_for_these = [i for i in investor_profile if not investor_profile[i]]
+    n_limit = 20
+    temp_reply = openai.ChatCompletion.create(messages=session.messages.copy(), model='gpt-3.5-turbo').choices[0].message.content
+    for info_type in ask_for_these:
+        choices = [*map(lambda x: x.message.content, openai.ChatCompletion.create(messages=
+                                        session.messages +
+                                        [{"role": "assistant", "content": temp_reply}] +
+                                        [{"role": "user", "content": f'Do you know my {info_type} based on our conversation so far? Yes or no:'}],
+                                        model='gpt-3.5-turbo', n=n_limit, max_tokens=30).choices)]
+        if verbose:
+            print('1:')
+            print({i: round(choices.count(i) / len(choices), 2) for i in pd.unique(choices)})
+        if np.any([*map(lambda x: 'yes' in x.lower(), choices)]):
+            choices = [*map(lambda x: x.message.content, openai.ChatCompletion.create(messages=
+                                        session.messages +
+                                        [{"role": "assistant", "content": temp_reply}] +
+                                        [{"role": "user", "content": questions[info_type]}],
+                                        model='gpt-3.5-turbo', n=n_limit, max_tokens=50).choices)]
+            if verbose:
+                print('2:')
+                print({i: round(choices.count(i) / len(choices), 2) for i in pd.unique(choices)})
+            if np.any([*map(lambda x: 'yes' in x.lower(), choices)]):
+                investor_profile[info_type] = 'yes'
+            elif np.any([*map(lambda x: 'no' in x.lower(), choices)]):
+                investor_profile[info_type] = 'no'
 
 
 def initialize_sessionAdvisor():
