@@ -209,7 +209,7 @@ def main():
         chat_messages = ""
         if messages:
             for message in messages:
-                role_color = "#0084ff" if message["role"] == "user" else "#9400D3"
+                role_color = "#006400" if message["role"] == "user" else "#9400D3"
                 alignment = "right" if message["role"] == "user" else "left"
                 content = message["content"]
                 # If the message is from the bot and contains multiple sentences, split it into bullet points
