@@ -233,7 +233,7 @@ def main():
     # Accept user input
     with st.form(key="my_form"):
         placeholder=st.empty()
-        user_input = placeholder.text_input("Type your message here...",key="widget")
+        user_input = placeholder.text_input("Enter your Keyword and Article Text",key="widget")
         # Create a button to send the user inputs
         if st.form_submit_button("Send",on_click=submit) and st.session_state.my_text:
             # Add the user's message to the chat history
