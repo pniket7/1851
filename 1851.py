@@ -256,28 +256,14 @@ def main():
             # Display the updated chat history including new messages
             chat_and_thinking_display = update_chat_display(st.session_state.chat_history) + '<div id="thinking"></div>'
             chat_container.markdown(f'<div style="border: 1px solid black; padding: 10px; height: 400px; overflow-y: scroll; position: relative;">{chat_and_thinking_display}</div>', unsafe_allow_html=True)
-        
-    
-    # Create a button to start a new conversation
-    if st.button("New Chat"):
-        # Clear the chat history to start a new conversation
-        st.session_state.chat_history = []
-
-        # Reinitialize sessionAdvisor for a new conversation
-        st.session_state.sessionAdvisor = initialize_sessionAdvisor()
-
-        # Clear the chat container for the new conversation
-        chat_container.markdown("", unsafe_allow_html=True)
-        st.markdown("New conversation started. You can now enter your query.")
 
     # Create a button to exit the current conversation
-    if st.button("Exit Chat"):
+    if st.button("Clear"):
         # Clear the chat history to exit the chat
         st.session_state.chat_history = []
 
         # Clear the chat container for the exited chat
         chat_container.markdown("", unsafe_allow_html=True)
-        st.markdown("Chatbot session exited. You can start a new conversation by clicking the 'New Chat' button.")
 
 if __name__ == "__main__":
     main()
