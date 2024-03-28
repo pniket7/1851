@@ -235,7 +235,7 @@ def main():
         placeholder=st.empty()
         user_input = placeholder.text_input("Enter your Keyword and Article Text",key="widget")
         # Create a button to send the user inputs
-        if st.form_submit_button("Send",on_click=submit) and st.session_state.my_text:
+        if st.form_submit_button("Enter",on_click=submit) and st.session_state.my_text:
             # Add the user's message to the chat history
             st.session_state.chat_history.append({"role": "user", "content": st.session_state.my_text})
 
